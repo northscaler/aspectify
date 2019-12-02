@@ -1,5 +1,5 @@
 # `@northscaler/aspectify`
-This package contains an implementation of _exclusively decorator-driven_ aspect-oriented programming (AOP).
+This package contains an implementation of _exclusively decorator-driven_ aspect-oriented programming (AOP), née [@scispike/aspectify](https://www.npmjs.com/package/@scispike/aspectify).
 It's similar in spirit to AspectJ's annotation-driven approach, whereby advised methods carry a visual indicator in the source that there is incoming behavior.
 In this way, there is no need for a special, AOP-aware editor for the developer to know when there is incoming advice.
 
