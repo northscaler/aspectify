@@ -66,7 +66,7 @@ module.exports = MyClass
 ```js
 // in file LogError.js
 
-const { AfterThrowing } = require('@scispike/aspectify')
+const { AfterThrowing } = require('@northscaler/aspectify')
 
 const logError = ({ thisJoinPoint, error }) => {
   console.log(`ERROR: ${thisJoinPoint.fullName} threw ${error}`)
@@ -255,7 +255,7 @@ Advice is the code that executes at your joinpoint.
 Therefore, advice is just a function, as detailed above, that is given to your decorator.
 
 The general idea is that you select the _least_ powerful kind of advice that you need (basically, only use `Around` advice if you absolutely need to).
-Then, provide one of `@scispike/aspectify`'s advice types your advice function.
+Then, provide one of `@northscaler/aspectify`'s advice types your advice function.
 
 >NOTE: For testability, it's a good idea to separate advice from decorators wherein they're used.
 That way, you can test your advice separately from the decorators in which it's used.
@@ -318,8 +318,8 @@ const appt = await appointmentRepo.findById(123)
 appt.cancelled = true // throws Error if the user is not authorized to cancel this appointment
 ```
 
->TIP: Use continuation-local storage to put things like users into a context.
-As a shameless plug, a good library to try is [`@scispike/nodej-support`](https://www.npmjs.com/package/@scispike/nodejs-support); specifically, `require('@scispike/nodejs-support/context/ClsHookedContext')`.
+> TIP: Use continuation-local storage to put things like users into a context.
+> As a shameless plug, a good library to try is [`@northscaler/continuation-local-storage`](https://www.npmjs.com/package/@northscaler/continuation-local-storage); specifically, `require('@northscaler/continuation-local-storage/context/ClsHookedContext')`.
 
 ### Parameterized Aspects
 Here's an example of a parameterized `Before` aspect that enforces security:
@@ -377,8 +377,8 @@ const appt = await appointmentRepo.findById(123)
 appt.cancelled = true // throws Error if the user is not authorized to cancel this appointment
 ```
 
->TIP: Use continuation-local storage to put things like users into a context.
-As a shameless plug, a good library to try is [`@scispike/nodej-support`](https://www.npmjs.com/package/@scispike/nodejs-support); specifically, `require('@scispike/nodejs-support/context/ClsHookedContext')`.
+> TIP: Use continuation-local storage to put things like users into a context.
+> As a shameless plug, a good library to try is [`@northscaler/continuation-local-storage`](https://www.npmjs.com/package/@northscaler/continuation-local-storage); specifically, `require('@northscaler/continuation-local-storage/context/ClsHookedContext')`.
 
 ### Synchronous v. Asynchronous Advice
 If an advised method is synchronous (not `async`), then the advice _must_ also be synchronous.
