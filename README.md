@@ -1,11 +1,10 @@
-# `aspectify`
+# `@northscaler/aspectify`
 This package contains an implementation of _exclusively decorator-driven_ aspect-oriented programming (AOP).
 It's similar in spirit to AspectJ's annotation-driven approach, whereby advised methods carry a visual indicator in the source that there is incoming behavior.
 In this way, there is no need for a special, AOP-aware editor for the developer to know when there is incoming advice.
 
 > NOTE: This currently uses Babel 7's `@babel/plugin-proposal-decorators` in `legacy: true` mode, which is compliant with TC39's Stage 1 decorator proposal.
-It also uses `@babel/plugin-proposal-class-properties` with setting `loose: true`.
-As the decorator proposal matures, this library will have to be updated to support later proposals (stage 2 & later).
+> As the decorator proposal matures, this library will have to be updated to support later proposals (stage 2 & later).
 
 > NOTE 2: Until further notice, do _not_ use `retainLines: true` in your Babel configuration, as it breaks Babel transpilation!
 
@@ -33,12 +32,6 @@ In the meantime, see the tests for usage information.
         {
           "legacy": true
         }
-      ],
-      [
-        "@babel/plugin-proposal-class-properties",
-        {
-          "loose": true
-        }
       ]
     ]
   }
@@ -64,7 +57,7 @@ module.exports = MyClass
 * Define some advice:
 
 ```js
-// in file LogError.js
+// in file logError.js
 
 const { AfterThrowing } = require('@northscaler/aspectify')
 
@@ -80,10 +73,10 @@ module.exports = AfterThrowing(logError)
 ```js
 // in file MyClass.js
 
-const LogError = require('./LogError')
+const logError = require('./LogError')
 
 class MyClass {
-  @LogError
+  @logError
   add(a, b) {
     if (typeof a !== 'number' || typeof b !== 'number') {
       throw new Error('only numbers allowed')
@@ -115,7 +108,7 @@ $ node go.js
 ERROR: add threw Error: only numbers allowed
 ```
 
->NOTE:
+> NOTE:
 If an advised method is synchronous (not `async`), then the advice _must_ also be synchronous.
 If an advised method is `async`, the advice may be synchronous _or_ `async`.
 
@@ -147,7 +140,7 @@ It's common for people to use the term "advice" in its plural form, "advices", s
 #### Advice Types
 There are several different advice types.
 
->TIP: You should use the _least_ powerful advice necessary for your use case.
+> TIP: You should use the _least_ powerful advice necessary for your use case.
 
 * `Around`: lets you completely control the advised joinpoint; this is the _most_ powerful form of advice.
 * `Before`: invoked before a joinpoint executes; the only way to prevent execution of the advised method is to throw.
@@ -203,7 +196,7 @@ Advice function signature: `function ({ thisJoinPoint, returnValue }) {}`
 `AfterReturning` advice allows you to do things _after_ the target method returns normally.
 You cannot replace the return value, only modify it.
 
->NOTE: If you _must_ replace the return value entirely, use `Around` advice.
+> NOTE: If you _must_ replace the return value entirely, use `Around` advice.
 
 Typical uses of `AfterReturning` advice include compliance, data masking, etc.
 
@@ -215,7 +208,7 @@ Advice function signature: `function ({ thisJoinPoint, error }) {}`
 `AfterThrowing` advice allows you to do things _after_ the target method has thrown something.
 You cannot replace the throwable.
 
->NOTE: If you _must_ replace the throwable entirely, use `Around` advice.
+> NOTE: If you _must_ replace the throwable entirely, use `Around` advice.
 
 Typical uses of `AfterThrowing` advice include compliance, error logging, etc.
 
@@ -229,7 +222,7 @@ Only one of `returnValue` or `error` will be present, depending on whether the t
 `AfterFinally` advice allows you to do things _after_ the target method completes.
 You cannot replace the return value or throwable, only modify them.
 
->NOTE: If you _must_ replace the return value or throwable entirely, use `Around` advice.
+> NOTE: If you _must_ replace the return value or throwable entirely, use `Around` advice.
 
 Typical uses of `AfterFinally` advice include timings, auditing, etc.
 
@@ -241,7 +234,7 @@ Advice function signature: `function ({ thisJoinPoint }) {}`
 In the case of `Around` advice, `thisJoinPoint` will also have a `proceed` function, that allows you to invoke the target method, optionally overriding the method's `this` reference and its arguments.
 See the documentation above for `thisJoinPoint` for more information.
 
->NOTE: The most common error when using `Around` advice is to forget to return the target method's return value after `thisJoinPoint.proceed()`ing.
+> NOTE: The most common error when using `Around` advice is to forget to return the target method's return value after `thisJoinPoint.proceed()`ing.
 Remember to return a value if the target method does!
 
 Typical uses of `Around` advice include caching, memoization, transaction management, method timings for service level agreement enforcement, etc.
@@ -257,7 +250,7 @@ Therefore, advice is just a function, as detailed above, that is given to your d
 The general idea is that you select the _least_ powerful kind of advice that you need (basically, only use `Around` advice if you absolutely need to).
 Then, provide one of `@northscaler/aspectify`'s advice types your advice function.
 
->NOTE: For testability, it's a good idea to separate advice from decorators wherein they're used.
+> NOTE: For testability, it's a good idea to separate advice from decorators wherein they're used.
 That way, you can test your advice separately from the decorators in which it's used.
 
 There are basically two kinds of aspects:  parameterless & parameterized.
@@ -305,7 +298,7 @@ class Appointment {
 }
 ```
 
->NOTE: When intercepting accessors (that is, `get` & `set` methods of properties), only annotate _one_ of the accessor methods.
+> NOTE: When intercepting accessors (that is, `get` & `set` methods of properties), only annotate _one_ of the accessor methods.
 
 Now, by simply using the class normally, unauthorized users will not be able to cancel appointments:
 ```js
@@ -364,7 +357,7 @@ class Appointment {
 }
 ```
 
->NOTE: When intercepting accessors (that is, `get` & `set` methods of properties), only annotate _one_ of the accessor methods.
+> NOTE: When intercepting accessors (that is, `get` & `set` methods of properties), only annotate _one_ of the accessor methods.
 
 Now, by simply using the class normally, unauthorized users will not be able to cancel appointments:
 ```js
@@ -390,13 +383,13 @@ If an advised method is `async`, the advice may be synchronous _or_ `async`.
 Sorry, you currently can't intercept constructor execution, but there _is_ an alternative pattern.
 Simply define a static factory method on your class, and intercept _that_:
 ```js
-const Secured = require('./Secured')
+const secured = require('./secured')
 
 class Appointment {
   /**
    * Constructs a new Appointment instance.
    */
-  @Secured
+  @secured
   static new (begin, end, notes) {
     return new Appointment(begin, end, notes)
   }
@@ -419,7 +412,7 @@ At design time, `thisJoinPointStaticPart.accessor` is truthy if the decorated me
 At runtime, if `thisJoinPoint.set` is truthy, then the `set` accessor was called and `thisJoinPoint.fullName` starts with `set `, and if `thisJoinPoint.get` is truthy, then the `get` accessor was called and `thisJoinPoint.fullName` starts with `get `.
 
 ## Modifying the target class
->NOTE: this is an advanced topic.
+> NOTE: this is an advanced topic.
 
 This implementation also provides aspect authors the ability to modify the target class.
 Each advice type accepts an optional second argument that is a function that is given a `thisJoinPointStaticPart`, with which you can use to do any metaprogramming you need to.

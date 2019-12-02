@@ -1,9 +1,9 @@
 'use strict'
 
-const LogError = require('./LogError')
+const logError = require('./logError')
 
 class MyClass {
-  @LogError
+  @logError
   add (a, b) {
     if (typeof a !== 'number' || typeof b !== 'number') {
       throw new Error('only numbers allowed')
