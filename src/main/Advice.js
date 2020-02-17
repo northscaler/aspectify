@@ -3,11 +3,11 @@
 /**
  * Returns a decorator that applies advice of any type.
  * @param modify [{function}] Function that takes a `thisJoinPointStaticPart` that can be used to modify the decorated member.
- * @param before [{function}] Function that takes a `thisJointPoint` that runs before execution proceeds.
- * @param afterReturning [{function}] Function that takes a `thisJointPoint` that runs after execution normally completes.
- * @param afterThrowing [{function}] Function that takes a `thisJointPoint` that runs after execution completes with an error.
- * @param afterFinally [{function}] Function that takes a `thisJointPoint` that runs after execution completes via `finally`.
- * @param around [{function}] Function that takes a `thisJointPoint` that leaves it to the developer to control behavior; no other advice functions are called.
+ * @param before [{function}] Function that takes a `thisJoinPoint` that runs before execution proceeds.
+ * @param afterReturning [{function}] Function that takes a `thisJoinPoint` that runs after execution normally completes.
+ * @param afterThrowing [{function}] Function that takes a `thisJoinPoint` that runs after execution completes with an error.
+ * @param afterFinally [{function}] Function that takes a `thisJoinPoint` that runs after execution completes via `finally`.
+ * @param around [{function}] Function that takes a `thisJoinPoint` that leaves it to the developer to control behavior; no other advice functions are called.
  * @return {Function}
  * @private
  */
@@ -158,34 +158,54 @@ const Advice = ({ modify, before, afterReturning, afterThrowing, afterFinally, a
 }
 
 const Around = (advice, modify) => Advice({ around: advice, modify })
+const around = Around
 
 const Before = (advice, modify) => Advice({ before: advice, modify })
+const before = Before
 
 const AfterReturning = (advice, modify) => Advice({ afterReturning: advice, modify })
+const afterReturning = AfterReturning
 
 const AfterThrowing = (advice, modify) => Advice({ afterThrowing: advice, modify })
+const afterThrowing = AfterThrowing
 
 const AfterFinally = (advice, modify) => Advice({ afterFinally: advice, modify })
+const afterFinally = AfterFinally
 
 const AsyncAround = (advice, modify) => Advice({ around: advice, modify, asyncAdvice: true })
+const asyncAround = AsyncAround
 
 const AsyncBefore = (advice, modify) => Advice({ before: advice, modify, asyncAdvice: true })
+const asyncBefore = AsyncBefore
 
 const AsyncAfterReturning = (advice, modify) => Advice({ afterReturning: advice, modify, asyncAdvice: true })
+const asyncAfterReturning = AsyncAfterReturning
 
 const AsyncAfterThrowing = (advice, modify) => Advice({ afterThrowing: advice, modify, asyncAdvice: true })
+const asyncAfterThrowing = AsyncAfterThrowing
 
 const AsyncAfterFinally = (advice, modify) => Advice({ afterFinally: advice, modify, asyncAdvice: true })
+const asyncAfterFinally = AsyncAfterFinally
 
 module.exports = {
   Around,
+  around,
   Before,
+  before,
   AfterReturning,
+  afterReturning,
   AfterThrowing,
+  afterThrowing,
   AfterFinally,
+  afterFinally,
   AsyncAround,
+  asyncAround,
   AsyncBefore,
+  asyncBefore,
   AsyncAfterReturning,
+  asyncAfterReturning,
   AsyncAfterThrowing,
-  AsyncAfterFinally
+  asyncAfterThrowing,
+  AsyncAfterFinally,
+  asyncAfterFinally
 }
