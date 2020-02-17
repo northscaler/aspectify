@@ -113,6 +113,11 @@ ERROR: add threw Error: only numbers allowed
 If an advised method is synchronous (not `async`), then the advice _must_ also be synchronous.
 If an advised method is `async`, the advice may be synchronous _or_ `async`.
 
+> NOTE:
+This library is not opinionated on whether decorator functions should begin with an upper case letter.
+For each advice type, there are two exports, one with a lower case first letter & one with upper case.
+Use whichever one you prefer.
+
 ## What's an aspect?
 An aspect is composed of two things:  a pointcut & advice.
 
