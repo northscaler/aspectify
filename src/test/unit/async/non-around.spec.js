@@ -190,6 +190,7 @@ describe('unit tests of asynchronous', function () {
       const initialValue = 'testing'
       let value = initialValue
 
+      // eslint-disable-next-line default-param-last
       const FirstParameterizedBeforeCount = (d = 0, v) => AsyncBefore(async ({ thisJoinPoint }) => {
         assertThisJoinPoint(thisJoinPoint)
         await pause(d)
@@ -198,6 +199,7 @@ describe('unit tests of asynchronous', function () {
         value = v
       })
 
+      // eslint-disable-next-line default-param-last
       const SecondParameterizedBeforeCount = (d = 0, v) => AsyncBefore(async ({ thisJoinPoint }) => {
         assertThisJoinPoint(thisJoinPoint)
         await pause(d)
