@@ -1,6 +1,6 @@
 {
   "name": "@northscaler/aspectify",
-  "version": "1.3.0-rc.0",
+  "version": "1.4.0-pre.0",
   "description": "Decorator-driven, aspect-oriented programming (AOP) for Node.js",
   "homepage": "https://github.com/northscaler/aspectify",
   "repository": {
